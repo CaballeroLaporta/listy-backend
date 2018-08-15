@@ -8,9 +8,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
+const tasksRouter = require('./routes/tasks');
 
 
 var app = express();
@@ -40,9 +39,8 @@ app.use(cors({
   origin: ['http://localhost:4200']
 }));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/tasks', tasksRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   res.status(404).json({code: 'not found'});

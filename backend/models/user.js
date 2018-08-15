@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const Schema   = mongoose.Schema;
+const ObjectId = mongoose.Schema.ObjectId;
 
 const userSchema = new Schema({
   username: {
@@ -15,7 +16,11 @@ const userSchema = new Schema({
   email:{
     type:String,
     requiered:true
-  }
+  },
+  mytasks: [{
+    type: ObjectId,
+    ref: 'Taks'
+  }],
 }, {
   timestamps: true
 });
