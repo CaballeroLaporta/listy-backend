@@ -19,9 +19,10 @@ const userSchema = new Schema({
   },
   mytasks: [{
     type: ObjectId,
-    ref: 'Taks'
+    ref: 'Task'
   }],
 }, {
+
   timestamps: true
 });
 
