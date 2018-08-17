@@ -10,11 +10,9 @@ const taskSchema = new Schema({
   },
   description: {
     type: String,
-    required: true
   },
   dueDate:{
-    type:Date,
-    required:true
+    type: Date,
   }
 }, {
   timestamps: true

@@ -27,7 +27,6 @@ router.get('/', function(req, res, next) {
 
 
 // /* POST Create task. */
-
 router.post('/create', (req, res, next) => {
   if (!req.session.currentUser) {
     return res.redirect("/api/auth/login");
@@ -58,16 +57,31 @@ router.post('/create', (req, res, next) => {
 });
 
 
-// /* GET place detail. */
-// router.get('/:id', function(req, res, next) {
-//   const {id} = req.params;
-//   Place.findById(id)
-//     .then((place) => {
-//       res.render('places/detail', place );
-//     })
-//     .catch(error =>{
-//       next(error);
-//     })
-// });
+// /* DELETE delete task. */
+router.delete('/:id' , function(req, res, next) {
+  const { id } = req.params;
+    
+    Task.deleteOne({_id: id})
+      .then(() => {
+        console.log('borrado')
+        res.status(200).json(Task);
+      })
+      .catch(error =>{
+        next(error);
+      })
+  });
+
+
+// /* PUT modify task. */
+router.put('/:id', function(req, res, next) {
+  const {name, description, dueDate} = req.body;
+  Place.findById(id)
+    .then((place) => {
+      res.render('places/detail', place );
+    })
+    .catch(error =>{
+      next(error);
+    })
+});
 
 module.exports = router;
