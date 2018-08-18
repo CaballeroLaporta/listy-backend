@@ -33,13 +33,13 @@ router.post('/create', (req, res, next) => {
   }
   const user = req.session.currentUser
   const {name, description, dueDate} = req.body;
-
+  
   if(!name) {return res.json({message: 'The fields can not be empty'})};
 
   const newTask = new Task({
     name,
     description,
-    dueDate,
+    dueDate: new Date(),
   });
 
   newTask.save()
@@ -69,19 +69,43 @@ router.delete('/:id' , function(req, res, next) {
       .catch(error =>{
         next(error);
       })
+    });
+    
+    /* GET task detail. */
+    router.get('/task-edit/:id', function(req, res, next) {
+      const {id} = req.params;
+
+      Task.findById({_id: id})
+        .then((taskdetail) => {
+          console.log(taskdetail)
+          res.status(200).json(taskdetail);
+        })
+        .catch(error =>{
+          next(error);
+        })
+    });
+
+/* PUT edit task. */
+  router.put('/:id', function(req, res, next) {
+    const { id } = req.params;
+    const {name, description, dueDate} = req.body;
+
+    Task.findByIdAndUpdate(req.params.id, {
+      $set: {
+          subject: req.body.name,
+          description: req.body.description,
+          currentStep: req.body.dueDate
+      }
+    })
+      .then((dataUpdate) => {
+        console.log(dataUpdate)
+        res.status(200).json(dataUpdate)
+      })
+      .catch(error =>{
+        next(error);
+      })
   });
 
 
-// /* PUT modify task. */
-router.put('/:id', function(req, res, next) {
-  const {name, description, dueDate} = req.body;
-  Place.findById(id)
-    .then((place) => {
-      res.render('places/detail', place );
-    })
-    .catch(error =>{
-      next(error);
-    })
-});
 
 module.exports = router;
