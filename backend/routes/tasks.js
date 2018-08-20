@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
   User.findById(userID)
     .populate('mytasks')
     .then((user) => {
-      console.log(user.mytasks);
+      // console.log(user.mytasks);
       return res.status(200).json(user.mytasks)
     })
     .catch(error =>{
@@ -63,7 +63,7 @@ router.delete('/:id' , function(req, res, next) {
     
     Task.deleteOne({_id: id})
       .then(() => {
-        console.log('borrado')
+        // console.log('borrado')
         res.status(200).json(Task);
       })
       .catch(error =>{
@@ -75,9 +75,9 @@ router.delete('/:id' , function(req, res, next) {
     router.get('/task-edit/:id', function(req, res, next) {
       const {id} = req.params;
 
-      Task.findById({_id: id})
+      Ta.findById({_id: id})
         .then((taskdetail) => {
-          console.log(taskdetail)
+          // console.log(taskdetail)
           res.status(200).json(taskdetail);
         })
         .catch(error =>{
@@ -87,16 +87,18 @@ router.delete('/:id' , function(req, res, next) {
 
 /* PUT edit task. */
   router.put('/:id', function(req, res, next) {
-    const { id } = req.params;
+    const id  = req.params.id;
+    console.log(req.params)
     const {name, description, dueDate} = req.body;
 
-    Task.findByIdAndUpdate(req.params.id, {
-      $set: {
-          subject: req.body.name,
-          description: req.body.description,
-          currentStep: req.body.dueDate
-      }
-    })
+    const data = {
+      name,
+      description,
+      dueDate
+    }
+    console.log(id,data)
+
+    Task.findByIdAndUpdate(id , {name, description, dueDate}, {new: true})
       .then((dataUpdate) => {
         console.log(dataUpdate)
         res.status(200).json(dataUpdate)
