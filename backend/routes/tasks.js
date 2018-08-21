@@ -28,9 +28,9 @@ router.get('/', function(req, res, next) {
 
 // /* POST Create task. */
 router.post('/create', (req, res, next) => {
-  if (!req.session.currentUser) {
-    return res.redirect("/api/auth/login");
-  }
+  // if (!req.session.currentUser) {
+  //   return res.redirect("/api/auth/login");
+  // }
   const user = req.session.currentUser
   const {name, description, dueDate} = req.body;
   

@@ -36,7 +36,7 @@ app.use(session({
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:4200']
+  origin: [process.env.CORS_URL]
 }));
 
 app.use('/api/auth', authRouter);

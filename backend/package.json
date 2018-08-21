@@ -6,6 +6,10 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
   },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
+  },
   "dependencies": {
     "bcrypt": "^3.0.0",
     "connect-mongo": "^2.0.1",
