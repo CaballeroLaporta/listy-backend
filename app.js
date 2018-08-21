@@ -14,6 +14,10 @@ const tasksRouter = require('./routes/tasks');
 
 var app = express();
 
+app.use(cors({
+  credentials: true,
+  origin: [process.env.CORS_URL]
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -34,10 +38,6 @@ app.use(session({
   }
 }));
 
-app.use(cors({
-  credentials: true,
-  origin: [process.env.CORS_URL]
-}));
 
 app.use('/api/auth', authRouter);
 app.use('/api/tasks', tasksRouter);
